@@ -1,5 +1,5 @@
 # DENSeServer
-Should have had a mono repo for this but due to unforeseen circumstances, here we are...\
+Should have had a mono repo for this but due to unforeseen circumstances, here we are...
 
 # instructions
 1.\
