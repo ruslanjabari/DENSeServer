@@ -12,7 +12,7 @@ function DENSeCharacteristic() {
       }),
     ],
   });
-  this._tmpMessages = null;
+  this._tmpMessages;
   this._updateValueCallback = null;
 }
 
@@ -37,7 +37,7 @@ DENSeCharacteristic.prototype.onWriteRequest = function (data, offset, withoutRe
   }
 
   // store data, then write response
-  this._tmpMessages = data;
+  this._tmpMessages += data;
   console.log('storing messages:', data.toString());
   callback(this.RESULT_SUCCESS);
 };

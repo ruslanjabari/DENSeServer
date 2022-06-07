@@ -23,6 +23,10 @@ bleno.on('stateChange', function (state) {
   bleno.stopAdvertising();
 });
 
+bleno.on('accept', function (clientAddr) {
+  console.log(`\nclientAddr is ${clientAddr}\n`);
+});
+
 // handle on advertising start event
 bleno.on('advertisingStart', function (err) {
   if (err) {
