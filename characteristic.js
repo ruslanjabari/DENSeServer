@@ -57,6 +57,7 @@ DENSeCharacteristic.prototype.onReadRequest = function (offset, callback) {
   // get data, then write response
   if (!this._tmpMessages) {
     console.log('you have no messages stored');
+    callback(this.RESULT_SUCCESS, Buffer.from('EOF', 'utf8'));
   } else {
     const data = this._tmpMessages.toString();
     console.log('getting messages:', data);
