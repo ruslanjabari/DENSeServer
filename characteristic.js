@@ -61,8 +61,17 @@ DENSeCharacteristic.prototype.onReadRequest = function (offset, callback) {
   } else {
     const data = this._tmpMessages.toString();
     console.log('getting messages:', data);
-    data.replace('undefined', '');
-    callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
+    // data.replace('undefined', '');
+    if (data.toString().includes('DENSE exposure')) {
+      const chunk = data.toString().slice(0, 512);
+      callback(this.RESULT_SUCCESS, Buffer.from(chunk, 'utf8'));
+      callback(
+        this.RESULT_SUCCESS,
+        Buffer.from(data.toString().slice(512, data.toString().length), 'utf8')
+      );
+    } else {
+      callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
+    }
   }
 };
 
