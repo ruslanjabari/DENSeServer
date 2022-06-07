@@ -55,10 +55,14 @@ DENSeCharacteristic.prototype.onReadRequest = function (offset, callback) {
   }
 
   // get data, then write response
-  const data = this._tmpMessages ? this._tmpMessages.toString() : 'you have no messages stored';
-  console.log('getting messages:', data);
-  data.replace('undefined', '');
-  callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
+  if (!this._tmpMessages) {
+    console.log('you have no messages stored');
+  } else {
+    const data = this._tmpMessages.toString();
+    console.log('getting messages:', data);
+    data.replace('undefined', '');
+    callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
+  }
 };
 
 // handle on subscribe
