@@ -5,6 +5,7 @@ const {
   DENSeCharacteristic1,
   DENSeCharacteristic2,
   DENSeCharacteristic3,
+  DENSeCharacteristic4,
 } = require('./characteristic');
 
 // create food bank service, then register food bank characteristic to it
@@ -15,6 +16,7 @@ function DENSeService() {
       new DENSeCharacteristic1(),
       new DENSeCharacteristic2(),
       new DENSeCharacteristic3(),
+      new DENSeCharacteristic4(),
     ],
   });
 }
