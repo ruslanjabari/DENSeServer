@@ -12,7 +12,9 @@ function DENSeCharacteristic() {
       }),
     ],
   });
-  this._tmpMessages;
+  this._tmpMessages = '';
+  this._firstHalf = '';
+  this_secondHalf = '';
   this._updateValueCallback = null;
 }
 
@@ -36,6 +38,20 @@ DENSeCharacteristic.prototype.onWriteRequest = function (data, offset, withoutRe
     this._updateValueCallback(data);
   }
 
+  if (data.toString().includes('header-1')) {
+    this._firstHalf = data.toString();
+    console.log('first half:', this._firstHalf);
+    callback(this.RESULT_SUCCESS);
+    return;
+  }
+
+  if (data.toString().includes('header-2')) {
+    this._secondHalf = data.toString();
+    console.log('second half:', this._secondHalf);
+    callback(this.RESULT_SUCCESS);
+    return;
+  }
+
   // store data, then write response
   if (data.toString().includes('{') && data.toString().includes('header')) {
     this._tmpMessages = data;
@@ -55,23 +71,26 @@ DENSeCharacteristic.prototype.onReadRequest = function (offset, callback) {
   }
 
   // get data, then write response
-  if (!this._tmpMessages) {
+  if (!this._tmpMessages && !this._firstHalf && !this._secondHalf) {
     console.log('you have no messages stored');
     callback(this.RESULT_SUCCESS, Buffer.from('EOF', 'utf8'));
   } else {
-    const data = this._tmpMessages.toString();
-    console.log('getting messages:', data);
-    // data.replace('undefined', '');
-    if (data.toString().includes('DENSE exposure')) {
-      const chunk = data.toString().slice(0, 512);
-      callback(this.RESULT_SUCCESS, Buffer.from(chunk, 'utf8'));
-      callback(
-        this.RESULT_SUCCESS,
-        Buffer.from(data.toString().slice(512, data.toString().length), 'utf8')
-      );
-    } else {
-      callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
+    if (this._firstHalf) {
+      console.log('sending first half');
+      callback(this.RESULT_SUCCESS, Buffer.from(this._firstHalf, 'utf8'));
     }
+    if (this._secondHalf) {
+      console.log('sending second half');
+      callback(this.RESULT_SUCCESS, Buffer.from(this._secondHalf, 'utf8'));
+    }
+    if (this._tmpMessages) {
+      console.log('sending stored messages');
+      callback(this.RESULT_SUCCESS, Buffer.from(this._tmpMessages, 'utf8'));
+    }
+    // const data = this._tmpMessages.toString();
+    // console.log('getting messages:', data);
+    // data.replace('undefined', '');
+    // callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
   }
 };
 
