@@ -161,7 +161,7 @@ DENSeCharacteristic2.prototype.onUnsubscribe = function () {
 
 function DENSeCharacteristic3() {
   bleno.Characteristic.call(this, {
-    uuid: '20000000-0000-0000-0000-000000000002'.replace(/\-/gi, ''),
+    uuid: '20000000-0000-0000-0000-000000000003'.replace(/\-/gi, ''),
     properties: ['read', 'write', 'notify', 'writeWithoutResponse'],
     descriptors: [
       new bleno.Descriptor({
