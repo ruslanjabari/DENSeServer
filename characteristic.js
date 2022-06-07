@@ -78,11 +78,13 @@ DENSeCharacteristic.prototype.onReadRequest = function (offset, callback) {
     if (this._firstHalf) {
       console.log('sending first half');
       callback(this.RESULT_SUCCESS, Buffer.from(this._firstHalf, 'utf8'));
+      if (this._secondHalf) {
+        console.log('sending second half');
+        callback(this.RESULT_SUCCESS, Buffer.from(this._secondHalf, 'utf8'));
+      }
+      return; // tmp
     }
-    if (this._secondHalf) {
-      console.log('sending second half');
-      callback(this.RESULT_SUCCESS, Buffer.from(this._secondHalf, 'utf8'));
-    }
+
     if (this._tmpMessages) {
       console.log('sending stored messages');
       callback(this.RESULT_SUCCESS, Buffer.from(this._tmpMessages, 'utf8'));
