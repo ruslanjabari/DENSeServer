@@ -41,13 +41,10 @@ DENSeCharacteristic.prototype.onWriteRequest = function (data, offset, withoutRe
   if (data.toString().includes('header-1')) {
     this._firstHalf = data.toString();
     console.log('first half:', this._firstHalf);
-    callback(this.RESULT_SUCCESS);
-    return;
-  }
-
-  if (data.toString().includes('header-2')) {
-    this._secondHalf = data.toString();
-    console.log('second half:', this._secondHalf);
+    if (data.toString().includes('header-2')) {
+      this._secondHalf = data.toString();
+      console.log('second half:', this._secondHalf);
+    }
     callback(this.RESULT_SUCCESS);
     return;
   }
