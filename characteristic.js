@@ -37,7 +37,7 @@ DENSeCharacteristic.prototype.onWriteRequest = function (data, offset, withoutRe
   }
 
   // store data, then write response
-  if (data.toString().includes('{')) {
+  if (data.toString().includes('{') && data.toString().includes('header')) {
     this._tmpMessages = data;
   } else {
     this._tmpMessages += data;
