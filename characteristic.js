@@ -12,8 +12,8 @@ function DENSeCharacteristic1() {
       }),
     ],
   });
-  this._tmpMessages = '';
-  this._updateValueCallback = null;
+  this._tmpMessages1 = '';
+  this._updateValueCallback1 = null;
 }
 
 util.inherits(DENSeCharacteristic1, bleno.Characteristic);
@@ -32,17 +32,17 @@ DENSeCharacteristic1.prototype.onWriteRequest = function (data, offset, withoutR
   }
 
   // if subscription active, notify every write request
-  if (this._updateValueCallback) {
-    this._updateValueCallback(data);
+  if (this._updateValueCallback1) {
+    this._updateValueCallback1(data);
   }
 
   // store data, then write response
   if (data.toString().includes('{') && data.toString().includes('header')) {
-    this._tmpMessages = data;
+    this._tmpMessages1 = data;
   } else {
-    this._tmpMessages += data;
+    this._tmpMessages1 += data;
   }
-  console.log('storing messages:', data.toString());
+  console.log('storing messages (CHAR 1):', data.toString());
   callback(this.RESULT_SUCCESS);
 };
 
@@ -55,12 +55,12 @@ DENSeCharacteristic1.prototype.onReadRequest = function (offset, callback) {
   }
 
   // get data, then write response
-  if (!this._tmpMessages) {
+  if (!this._tmpMessages1) {
     console.log('you have no messages stored');
     callback(this.RESULT_SUCCESS, Buffer.from('EOF', 'utf8'));
   } else {
-    const data = this._tmpMessages.toString();
-    console.log('getting messages:', data);
+    const data = this._tmpMessages1.toString();
+    console.log('getting messages: (CHAR 1)', data);
     data.replace('undefined', '');
     callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
   }
@@ -70,14 +70,14 @@ DENSeCharacteristic1.prototype.onReadRequest = function (offset, callback) {
 DENSeCharacteristic1.prototype.onSubscribe = function (maxValueSize, updateValueCallback) {
   console.log('on subscribe');
 
-  this._updateValueCallback = updateValueCallback;
+  this._updateValueCallback1 = updateValueCallback;
 };
 
 // handle on unsubscribe
 DENSeCharacteristic1.prototype.onUnsubscribe = function () {
   console.log('on unsubscribe');
 
-  this._updateValueCallback = null;
+  this._updateValueCallback1 = null;
 };
 
 function DENSeCharacteristic2() {
@@ -91,8 +91,8 @@ function DENSeCharacteristic2() {
       }),
     ],
   });
-  this._tmpMessages = '';
-  this._updateValueCallback = null;
+  this._tmpMessages2 = '';
+  this._updateValueCallback2 = null;
 }
 
 util.inherits(DENSeCharacteristic2, bleno.Characteristic);
@@ -111,17 +111,17 @@ DENSeCharacteristic2.prototype.onWriteRequest = function (data, offset, withoutR
   }
 
   // if subscription active, notify every write request
-  if (this._updateValueCallback) {
-    this._updateValueCallback(data);
+  if (this._updateValueCallback2) {
+    this._updateValueCallback2(data);
   }
 
   // store data, then write response
   if (data.toString().includes('{') && data.toString().includes('header')) {
-    this._tmpMessages = data;
+    this._tmpMessages2 = data;
   } else {
-    this._tmpMessages += data;
+    this._tmpMessages2 += data;
   }
-  console.log('storing messages:', data.toString());
+  console.log('storing messages: (CHAR 2)', data.toString());
   callback(this.RESULT_SUCCESS);
 };
 
@@ -134,12 +134,12 @@ DENSeCharacteristic2.prototype.onReadRequest = function (offset, callback) {
   }
 
   // get data, then write response
-  if (!this._tmpMessages) {
+  if (!this._tmpMessages2) {
     console.log('you have no messages stored');
     callback(this.RESULT_SUCCESS, Buffer.from('EOF', 'utf8'));
   } else {
-    const data = this._tmpMessages.toString();
-    console.log('getting messages:', data);
+    const data = this._tmpMessages2.toString();
+    console.log('getting messages: (CHAR 2)', data);
     data.replace('undefined', '');
     callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
   }
@@ -149,14 +149,14 @@ DENSeCharacteristic2.prototype.onReadRequest = function (offset, callback) {
 DENSeCharacteristic2.prototype.onSubscribe = function (maxValueSize, updateValueCallback) {
   console.log('on subscribe');
 
-  this._updateValueCallback = updateValueCallback;
+  this._updateValueCallback2 = updateValueCallback;
 };
 
 // handle on unsubscribe
 DENSeCharacteristic2.prototype.onUnsubscribe = function () {
   console.log('on unsubscribe');
 
-  this._updateValueCallback = null;
+  this._updateValueCallback2 = null;
 };
 
 function DENSeCharacteristic3() {
@@ -170,8 +170,8 @@ function DENSeCharacteristic3() {
       }),
     ],
   });
-  this._tmpMessages = '';
-  this._updateValueCallback = null;
+  this._tmpMessages3 = '';
+  this._updateValueCallback3 = null;
 }
 
 util.inherits(DENSeCharacteristic3, bleno.Characteristic);
@@ -190,17 +190,17 @@ DENSeCharacteristic3.prototype.onWriteRequest = function (data, offset, withoutR
   }
 
   // if subscription active, notify every write request
-  if (this._updateValueCallback) {
-    this._updateValueCallback(data);
+  if (this._updateValueCallback3) {
+    this._updateValueCallback3(data);
   }
 
   // store data, then write response
   if (data.toString().includes('{') && data.toString().includes('header')) {
-    this._tmpMessages = data;
+    this._tmpMessages3 = data;
   } else {
-    this._tmpMessages += data;
+    this._tmpMessages3 += data;
   }
-  console.log('storing messages:', data.toString());
+  console.log('storing messages: (CHAR 3)', data.toString());
   callback(this.RESULT_SUCCESS);
 };
 
@@ -213,12 +213,12 @@ DENSeCharacteristic3.prototype.onReadRequest = function (offset, callback) {
   }
 
   // get data, then write response
-  if (!this._tmpMessages) {
+  if (!this._tmpMessages3) {
     console.log('you have no messages stored');
     callback(this.RESULT_SUCCESS, Buffer.from('EOF', 'utf8'));
   } else {
-    const data = this._tmpMessages.toString();
-    console.log('getting messages:', data);
+    const data = this._tmpMessages3.toString();
+    console.log('getting messages: (CHAR 3)', data);
     data.replace('undefined', '');
     callback(this.RESULT_SUCCESS, Buffer.from(data, 'utf8'));
   }
@@ -228,14 +228,14 @@ DENSeCharacteristic3.prototype.onReadRequest = function (offset, callback) {
 DENSeCharacteristic3.prototype.onSubscribe = function (maxValueSize, updateValueCallback) {
   console.log('on subscribe');
 
-  this._updateValueCallback = updateValueCallback;
+  this._updateValueCallback3 = updateValueCallback;
 };
 
 // handle on unsubscribe
 DENSeCharacteristic3.prototype.onUnsubscribe = function () {
   console.log('on unsubscribe');
 
-  this._updateValueCallback = null;
+  this._updateValueCallback3 = null;
 };
 
 module.exports = { DENSeCharacteristic1, DENSeCharacteristic2, DENSeCharacteristic3 };
